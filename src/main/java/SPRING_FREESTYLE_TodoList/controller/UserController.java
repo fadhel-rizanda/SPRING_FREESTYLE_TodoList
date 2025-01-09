@@ -45,16 +45,12 @@ public class UserController {
         return userService.findByUsername(username, page, size);
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public String login(@RequestBody @Valid UserDTO userDTO) {
         return userService.verify(userDTO);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public UserDTO createUser(@Valid @RequestBody UserDTO userDTO) {
         return userService.createUser(userDTO);
     }
