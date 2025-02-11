@@ -7,8 +7,9 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
-//@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public record UserDTO(Long id, String username, String email,
                       @NotBlank
                       String password, List<TodoList> todoLists) {
+
 }

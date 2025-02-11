@@ -1,7 +1,7 @@
 package SPRING_FREESTYLE_TodoList.configuration;
 
-import SPRING_FREESTYLE_TodoList.service.JWTService;
-import SPRING_FREESTYLE_TodoList.service.MyUserDetailService;
+import SPRING_FREESTYLE_TodoList.service.security.JWTService;
+import SPRING_FREESTYLE_TodoList.service.security.MyUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

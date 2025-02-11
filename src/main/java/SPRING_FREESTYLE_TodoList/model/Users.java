@@ -41,6 +41,12 @@ public class Users {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "role", nullable = true)
+    private String role;
+
+    @Column(name = "oauth_provider", nullable = true)
+    private String oauthProvider;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<TodoList> todoLists = new ArrayList<>();

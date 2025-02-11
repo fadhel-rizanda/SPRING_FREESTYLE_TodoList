@@ -1,6 +1,7 @@
 package SPRING_FREESTYLE_TodoList.controller;
 
 import SPRING_FREESTYLE_TodoList.dto.UserDTO;
+import SPRING_FREESTYLE_TodoList.dto.UserRegisterDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,17 +46,13 @@ public class UserController {
         return userService.findByUsername(username, page, size);
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public String login(@RequestBody @Valid UserDTO userDTO) {
         return userService.verify(userDTO);
     }
 
-    @PostMapping("/register")
-    public UserDTO createUser(@Valid @RequestBody UserDTO userDTO) {
+    @PostMapping("/auth/register")
+    public UserRegisterDTO createUser(@Valid @RequestBody UserRegisterDTO userDTO) {
         return userService.createUser(userDTO);
     }
 
