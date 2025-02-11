@@ -1,4 +1,4 @@
-package SPRING_FREESTYLE_TodoList.service;
+package SPRING_FREESTYLE_TodoList.service.security;
 
 import SPRING_FREESTYLE_TodoList.model.Users;
 import SPRING_FREESTYLE_TodoList.model.UserPrincipal;
@@ -16,7 +16,8 @@ public class MyUserDetailService implements UserDetailsService {
     private UserRepository repo;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = repo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
-        return new UserPrincipal(user);
+//        Users user = repo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
+//        return new UserPrincipal(user);
+        return repo.findByUsername(username).map(UserPrincipal::new).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

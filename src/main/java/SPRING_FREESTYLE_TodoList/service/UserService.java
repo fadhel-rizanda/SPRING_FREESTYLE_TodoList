@@ -1,7 +1,9 @@
 package SPRING_FREESTYLE_TodoList.service;
 
 import SPRING_FREESTYLE_TodoList.dto.UserDTO;
+import SPRING_FREESTYLE_TodoList.dto.UserRegisterDTO;
 import SPRING_FREESTYLE_TodoList.model.Users;
+import SPRING_FREESTYLE_TodoList.service.security.JWTService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,12 +13,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import SPRING_FREESTYLE_TodoList.repository.TodoListRepository;
 import SPRING_FREESTYLE_TodoList.repository.UserRepository;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -44,11 +48,23 @@ public class UserService {
         return user.map(UserMapper::toUserDTO);
     }
 
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserRegisterDTO createUser(UserRegisterDTO userDTO) {
         log.warn("Creating user: {}", userDTO);
         Users user = UserMapper.toUserEntity(userDTO);
         user.setPassword(encoder.encode(userDTO.password()));
         userRepository.save(user);
+        return UserMapper.toUserRegisterDTO(user);
+    }
+
+    public UserDTO createOauthUser(OAuth2User oauth, String oauthProvider) {
+        log.warn("Creating user: {}", oauth);
+        Users user = new Users();
+        user.setUsername(oauth.getName());
+        user.setPassword(encoder.encode(UUID.randomUUID().toString()));
+        user.setEmail(oauth.getAttribute("email"));
+        user.setOauthProvider(oauthProvider);
+        userRepository.save(user);
+
         return UserMapper.toUserDTO(user);
     }
 

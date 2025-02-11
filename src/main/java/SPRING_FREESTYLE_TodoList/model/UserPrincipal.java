@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-
+// user details
 public class UserPrincipal implements UserDetails {
     private Users user;
 
@@ -21,7 +21,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getPassword();// karena menggunakan oauth tidak akan memiliki password jad pasti akan null, disini kita make uuid yang dihash bcrypt
     }
 
     @Override

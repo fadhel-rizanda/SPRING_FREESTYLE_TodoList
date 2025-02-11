@@ -1,6 +1,7 @@
 package SPRING_FREESTYLE_TodoList.controller;
 
 import SPRING_FREESTYLE_TodoList.dto.UserDTO;
+import SPRING_FREESTYLE_TodoList.dto.UserRegisterDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/auth/register")
-    public UserDTO createUser(@Valid @RequestBody UserDTO userDTO) {
+    public UserRegisterDTO createUser(@Valid @RequestBody UserRegisterDTO userDTO) {
         return userService.createUser(userDTO);
     }
 
